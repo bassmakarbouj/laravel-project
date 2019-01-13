@@ -17,3 +17,5 @@ Route::get('/', function () {
 
 // Route::get('page1','PageControllers@p1');
 Route::get('page2','PageControllers@show');
+Route::post('pagestore','PageControllers@store');
+Route::get('page/{id}/delete','PageControllers@delete');
