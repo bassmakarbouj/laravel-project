@@ -33,6 +33,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profile') }}">{{ __('profile') }}</a>
+                    </li>
+
+                    @if ((Auth::user()) && (Auth::user()->role == 1))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('control') }}">{{ __('control') }}</a>
+                    </li>
+                    @endif
 
                     </ul>
 
