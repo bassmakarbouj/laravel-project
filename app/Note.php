@@ -8,6 +8,6 @@ class Note extends Model
 {
     protected $fillable =['text'];
     public function page(){
-        return $this->belongsTo(Page::class);
+        return $this->belongsTo(Page::class , 'foreign_key');
     }
 }

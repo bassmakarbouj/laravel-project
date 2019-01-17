@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use User;
+use DB;
 
 class HomeController extends Controller
 {
@@ -22,20 +24,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
+    
+    public function index(){
         return view('home');
     }
 
     public function profile(){
-        return view('profile');
+        $id = DB::table('users')->get();
+        $i = $id[0];
+        // print_r($i);
+        
+        return view('profile',compact('i'));
     }
 
-    public function control(){
-        if((Auth::user()) && (Auth::user()->role==3)){
-            return redirect('/');
-        }
-
-        return view('control');
-    }
+    
 }
