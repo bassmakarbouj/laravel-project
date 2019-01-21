@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jan 17, 2019 at 03:55 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 5.6.39
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 21, 2019 at 10:14 PM
+-- Server version: 5.7.23
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,12 +28,21 @@ SET time_zone = "+00:00";
 -- Table structure for table `category_course`
 --
 
-CREATE TABLE `category_course` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `category_course`;
+CREATE TABLE IF NOT EXISTS `category_course` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `category_course`
+--
+
+INSERT INTO `category_course` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(22, 'web', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -41,8 +50,9 @@ CREATE TABLE `category_course` (
 -- Table structure for table `course`
 --
 
-CREATE TABLE `course` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE IF NOT EXISTS `course` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `category_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `time` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -54,7 +64,9 @@ CREATE TABLE `course` (
   `start_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `course_category_id_foreign` (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -63,11 +75,13 @@ CREATE TABLE `course` (
 -- Table structure for table `migrations`
 --
 
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `migrations`;
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -88,12 +102,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- Table structure for table `notes`
 --
 
-CREATE TABLE `notes` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `notes`;
+CREATE TABLE IF NOT EXISTS `notes` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `page_id` int(10) UNSIGNED NOT NULL,
   `text` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -102,11 +118,13 @@ CREATE TABLE `notes` (
 -- Table structure for table `pages`
 --
 
-CREATE TABLE `pages` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `pages`;
+CREATE TABLE IF NOT EXISTS `pages` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -115,11 +133,20 @@ CREATE TABLE `pages` (
 -- Table structure for table `password_resets`
 --
 
-CREATE TABLE `password_resets` (
+DROP TABLE IF EXISTS `password_resets`;
+CREATE TABLE IF NOT EXISTS `password_resets` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('bassma222k@gmail.com', '$2y$10$hYN3tNBazCgGPuU5TJ1vbO0kF/sjvKdcXMQh3Qi5w2GzNj2jbcvjW', '2019-01-20 12:17:20');
 
 -- --------------------------------------------------------
 
@@ -127,111 +154,29 @@ CREATE TABLE `password_resets` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `role` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `role` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `role`) VALUES
-(1, 'Bassma Karbouj', 'bassma222k@gmail.com', '$2y$10$GlhvlXOWgf/vo2yHMTeAHu5pUOrI1b8rtURresv1VKEOmDJroCYla', NULL, '2019-01-17 12:53:49', '2019-01-17 12:53:49', 1);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `category_course`
---
-ALTER TABLE `category_course`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `course`
---
-ALTER TABLE `course`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `course_category_id_foreign` (`category_id`);
-
---
--- Indexes for table `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `notes`
---
-ALTER TABLE `notes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `pages`
---
-ALTER TABLE `pages`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `password_resets`
---
-ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `category_course`
---
-ALTER TABLE `category_course`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `course`
---
-ALTER TABLE `course`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
-
---
--- AUTO_INCREMENT for table `notes`
---
-ALTER TABLE `notes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `pages`
---
-ALTER TABLE `pages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+(1, 'Bassma Karbouj', 'bassma222k@gmail.com', '$2y$10$GlhvlXOWgf/vo2yHMTeAHu5pUOrI1b8rtURresv1VKEOmDJroCYla', NULL, '2019-01-17 12:53:49', '2019-01-17 12:53:49', 1),
+(2, 'Bassma k', 'bassma222@gmail.com', '$2y$10$uM5KDEfWCJN3kdiA5JxjuOzTE4YpQ9JBFkqXYoV7pBoYyq6gE8Uje', 'SCzWUGlKzcmHld39xjXrXlNR4O4w6cTptLpd8a5ULETdZ7hTYmNHj7SRlBrl', '2019-01-20 11:14:41', '2019-01-20 11:32:19', 1),
+(3, 'Bassome kk', 'bassma@gmail.com', '$2y$10$n0AGQQTRgvtGhJxlIOr8.u9djXWDM1MrP.xLcIWNBdj4V2V8YRe0i', 'hICvKvklJvWIbYQ2KcnLbMwOQbThZINNPspW7QOQeuGXbHiUnVwgZJP0X5p7', '2019-01-20 11:42:40', '2019-01-20 11:42:59', 2),
+(4, 'Bassma', 'bassma2@gmail.com', '$2y$10$4TiSX4ZD546OkZ1OJqQUNeWQjo/05Cebx91AjJHlYyL4OvrlRAaQO', NULL, '2019-01-20 15:34:27', '2019-01-20 15:34:27', 1);
 
 --
 -- Constraints for dumped tables
