@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Auth;
 
 class UpdateProfileRequest extends FormRequest
 {
@@ -13,7 +14,8 @@ class UpdateProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        Auth::user()->role == 2 ;
+        // return true;
     }
 
     /**

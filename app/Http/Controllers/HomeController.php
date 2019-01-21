@@ -30,9 +30,11 @@ class HomeController extends Controller
     }
 
     public function profile(){
-        $id = DB::table('users')->get();
-        $i = $id[0];
-        // print_r($i);
+        // $id = DB::table('users')->get();
+        $id = Auth::user();
+        
+        $i = $id;
+        // dd($i);
         
         return view('profile',compact('i'));
     }

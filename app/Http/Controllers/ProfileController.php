@@ -16,8 +16,8 @@ class ProfileController extends Controller
     // }
 
     public function updateProfile(UpdateProfileRequest $request , User $user_id){
-        // dd($request->validated());
-        $user_id->update($request->validated());
+        // dd($request);
+        $user_id->update($request->all());
         $user_id->save();
         // Post::where('id', $user_id)->update(Input::all());
         return  redirect('profile');

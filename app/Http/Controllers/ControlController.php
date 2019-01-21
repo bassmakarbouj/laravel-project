@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Auth;
 use User;
 use DB; 
+use App\Course;
+use Schema;
 
 class ControlController extends Controller
 {
@@ -13,6 +15,11 @@ class ControlController extends Controller
         if((Auth::user()) && (Auth::user()->role==3)){
             return redirect('/');
         }
-        return view('control');
+        // $column = DB::table('course')->get();
+        $column = Schema::getColumnListing('course');
+        // $course = new Course;
+        // $column = $course->getTableColumns();
+        // dd($column);
+        return view('control', compact('column'));
     }
 }

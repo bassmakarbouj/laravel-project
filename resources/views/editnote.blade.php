@@ -10,6 +10,7 @@
   @csrf 
   
    <div class="input-group">
+     mmm
    <input type="text" name="text" value="{{$not_id->text}}" >
    <button class="btn btn-default" type="submit">Edit</button>
    </div>
