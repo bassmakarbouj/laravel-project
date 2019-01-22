@@ -22,4 +22,12 @@ class ControlController extends Controller
         // dd($column);
         return view('control', compact('column'));
     }
+
+    public function createCourse(CreateCourseRequest $request){
+        $course = new Course;
+        $course->name = $request->name;
+        $course->save();
+
+       return view('profile');
+    }
 }

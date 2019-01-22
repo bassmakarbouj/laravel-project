@@ -33,9 +33,12 @@ Route::post('page/{not_id}/update','NoteController@updateNote');
 //Authintication Route
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->middleware('auth')->name('home');
 Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::get('/control', 'ControlController@control')->name('control');
 
 //Profile
 Route::post('update-my-profile/{user_id}','ProfileController@updateProfile');
+
+//Course
+Route::post('createCourse','ControlController@createCourse');

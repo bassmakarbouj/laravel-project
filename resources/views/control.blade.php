@@ -19,10 +19,10 @@
     <div class="tab-content" id="myTabContent">
         <!-- Manager Account Control -->
         <div class="tab-pane fade show active" id="manager" role="tabpanel" aria-labelledby="home-tab">
-            <div class="container" id="control_container" >
+            <div class="container" id="control_container">
                 <p> Manager Account Control </p>
                 <div id="managerControl"></div>
-               
+
             </div>
         </div>
 
@@ -30,16 +30,27 @@
         <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="profile-tab">
             <div class="container" id="control_container">
                 <p> Courses Control </p>
-                
-                @foreach ($column as $c => $v)
-                
-                <form method="POST" >
-                    {{$v}}
-                    <input name="c" type="text" >
+
+                <form method="POST" action="createCourse">
+
+                    @foreach ($column as $c => $v) {{$v}}
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input name="c" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    @endforeach
+
+                    <div class="form-group row">
+                        <div class="btn-group">
+                            <input type="submit" class="btn btn-danger">
+                            {{-- <button href="control" class="btn btn-default">Cancel</button> --}}
+                        </div>
+                    </div>
+
                 </form>
-                    
-                @endforeach
-                
+
             </div>
         </div>
 
@@ -47,8 +58,9 @@
         <div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="contact-tab">
             <div class="container" id="control_container">
                 <p> Student Account Control </p>
+
                 <body>
-                <div data-include="editnote.blade.php"></div>
+                    <div data-include="editnote.blade.php"></div>
                 </body>
             </div>
         </div>
@@ -56,16 +68,16 @@
 </div>
 
 <script>
-
-function managerFunction() {
+    function managerFunction() {
     $("#managerControl").load("editnote.blade.php"); 
 }
 
 window.onload=managerFunction();
 
-
-
 </script>
+
+
+
 
 
 
