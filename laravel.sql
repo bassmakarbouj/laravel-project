@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 22, 2019 at 03:45 PM
+-- Generation Time: Jan 23, 2019 at 04:00 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 5.6.39
 
@@ -35,6 +35,17 @@ CREATE TABLE `category_course` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `category_course`
+--
+
+INSERT INTO `category_course` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(22, 'web', '2019-01-22 22:00:00', NULL),
+(27, 'and', '2019-01-23 10:51:11', '2019-01-23 10:51:11'),
+(41, 'vvvvv', '2019-01-23 11:03:10', '2019-01-23 11:03:10'),
+(42, 'vvvvv', '2019-01-23 11:04:06', '2019-01-23 11:04:06'),
+(43, 'weeee', '2019-01-23 11:04:15', '2019-01-23 11:04:15');
+
 -- --------------------------------------------------------
 
 --
@@ -45,17 +56,24 @@ CREATE TABLE `course` (
   `id` int(10) UNSIGNED NOT NULL,
   `category_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `time` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `period` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `target_age` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `student_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lessons_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `trainer_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
+  `time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `period` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `target_age` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `student_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lessons_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `trainer_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `course`
+--
+
+INSERT INTO `course` (`id`, `category_id`, `name`, `time`, `period`, `target_age`, `student_number`, `lessons_number`, `trainer_name`, `start_date`, `end_date`, `created_at`, `updated_at`) VALUES
+(6, 22, 'laravel', '2:00 pm', '15 days', '20', '25', '15', 'Mhd', '2019-01-23', '2019-01-31', '2019-01-23 12:16:29', '2019-01-23 12:16:29');
 
 -- --------------------------------------------------------
 
@@ -74,14 +92,14 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(51, '2014_10_12_000000_create_users_table', 1),
-(52, '2014_10_12_100000_create_password_resets_table', 1),
-(53, '2019_01_13_123018_create_pages_table', 1),
-(54, '2019_01_14_074339_create_notes_table', 1),
-(55, '2019_01_15_090212_add_role_to_users', 1),
-(56, '2019_01_17_135111_add_category_course_table', 1),
-(57, '2019_01_17_135145_add_course_table', 1),
-(58, '2019_01_22_123010_entrust_setup_tables', 1);
+(123, '2014_10_12_000000_create_users_table', 1),
+(124, '2014_10_12_100000_create_password_resets_table', 1),
+(125, '2019_01_13_123018_create_pages_table', 1),
+(126, '2019_01_14_074339_create_notes_table', 1),
+(127, '2019_01_15_090212_add_role_to_users', 1),
+(128, '2019_01_17_135111_add_category_course_table', 1),
+(129, '2019_01_17_135145_add_course_table', 1),
+(130, '2019_01_22_123010_entrust_setup_tables', 1);
 
 -- --------------------------------------------------------
 
@@ -142,9 +160,26 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `display_name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'store_course', 'Store Course', '', NULL, NULL),
-(2, 'update_course', 'Update Course', '', NULL, NULL),
-(3, 'delete_course', 'Delete Course', '', NULL, NULL);
+(1, 'update_profile', 'update profile', '', NULL, NULL),
+(2, 'store_course', 'Store Course', '', NULL, NULL),
+(3, 'update_course', 'Update Course', '', NULL, NULL),
+(4, 'delete_course', 'Delete Course', '', NULL, NULL),
+(5, 'store_file_course', 'store file course', '', NULL, NULL),
+(6, 'add_admin_manager', 'Add Admin and Manager', '', NULL, NULL),
+(7, 'update_admin_manager', 'Add Admin and Manager', '', NULL, NULL),
+(8, 'delete_admin_manager', 'Add Admin and Manager', '', NULL, NULL),
+(9, 'comment_admin_manager', 'Add Admin and Manager', '', NULL, NULL),
+(10, 'comment_student', 'comment student', '', NULL, NULL),
+(11, 'update_student', 'update student', '', NULL, NULL),
+(12, 'delete_student', 'delete student', '', NULL, NULL),
+(13, 'show_student_statue', 'delete student', '', NULL, NULL),
+(14, 'create_course_category', 'create course category', '', NULL, NULL),
+(15, 'update_course_category', 'update course category', '', NULL, NULL),
+(16, 'delete_course_category', 'delete course category', '', NULL, NULL),
+(17, 'show_course_form', 'show course form', '', NULL, NULL),
+(18, 'accept_course_form', 'accept course form', '', NULL, NULL),
+(19, 'ignore_course_form', 'ignore course form', '', NULL, NULL),
+(20, 'comment_course_form', 'comment course form', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -163,8 +198,29 @@ CREATE TABLE `permission_role` (
 
 INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (1, 1),
+(1, 2),
+(1, 3),
 (2, 1),
-(3, 1);
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 1),
+(13, 1),
+(13, 3),
+(14, 1),
+(15, 1),
+(16, 1),
+(17, 2),
+(17, 3),
+(18, 2),
+(19, 2),
+(20, 2);
 
 -- --------------------------------------------------------
 
@@ -186,7 +242,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'Admin', 'Admin', '2019-01-21 22:00:00', '2019-01-21 22:00:00');
+(1, 'admin', 'Admin', 'Admin', NULL, NULL),
+(2, 'trainer', 'Trainer', 'Trainer', NULL, NULL),
+(3, 'user', 'User', 'User', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -204,7 +262,9 @@ CREATE TABLE `role_user` (
 --
 
 INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
-(1, 1);
+(1, 1),
+(2, 2),
+(3, 3);
 
 -- --------------------------------------------------------
 
@@ -228,7 +288,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `role`) VALUES
-(1, 'Fayez', 'fayez@fayez.com', '$2y$10$LRM0hkU5C0yVXDA/ldGXsONRN88kqgJexlLCjxu9BMhg.g7FNt/Yy', NULL, '2019-01-22 12:16:13', '2019-01-22 12:16:13', NULL);
+(1, 'Bassma Admin', 'bassma222k@gmail.com', '$2y$10$SYQqvDACO1.FZcgbMzi2yuZIGh/P4yc/.F36RXa2gh/aLqEHcslbW', 'rNksGPSpupDDQ1FicyDRbs5mLdQg2J0y1Z8gO0E8kXbdK16xk7kkw8FWoyOs', NULL, NULL, NULL),
+(2, 'Bassma Trainer', 'bassma222@gmail.com', '$2y$10$po/oUYmz8xxS.DCAElYbu.v.00hKLkxcnsagzdNpu9IZwNcu9tVrm', 'h7Fa2EwVp6FYTyWtqZe8Q1exVAQ1IpDiqnUsHEwFv7eMdkz6gMQ0vsI4zvZC', NULL, NULL, NULL),
+(3, 'Bassma Student', 'bassma@gmail.com', '$2y$10$zF16LqWOKxfh9DDrVlbTTetcc0O1ByPSZfYQCjwItvz.ybeD4.QrO', 'Hslyu9N2TM2s5LKMSkMLReLmhWsNZCd4H0Eg7qjYa6l9CEI0G7MT0hlO88TP', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -314,19 +376,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category_course`
 --
 ALTER TABLE `category_course`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `notes`
@@ -344,19 +406,19 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

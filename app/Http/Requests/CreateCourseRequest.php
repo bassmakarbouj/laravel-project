@@ -13,7 +13,9 @@ class CreateCourseRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->hasRole('admin') && $this->user()->can('store_course');
+        
+        
     }
 
     /**
@@ -24,7 +26,16 @@ class CreateCourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string',
+            'name' => 'required|string',
+            'category_id'   => 'required|integer|exists:category_course,id',
+            'time' => 'string',
+            'period' => 'string',
+            'target_age' => 'string',
+            'student_number' => 'string',
+            'lessons_number' => 'string',
+            'trainer_name' => 'string',
+            'start_date' => 'date',
+            'end_date' => 'date',
         ];
     }
 }

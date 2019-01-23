@@ -15,6 +15,18 @@ class ProfileController extends Controller
     //     updateProfile();
     // }
 
+
+    public function profile(){
+        // $id = DB::table('users')->get();
+        $id = Auth::user();
+
+        $i = $id;
+        // dd($i);
+
+        return view('profile',compact('i'));
+    }
+
+
     public function updateProfile(UpdateProfileRequest $request , User $user_id){
         // dd($request);
         $user_id->update($request->all());

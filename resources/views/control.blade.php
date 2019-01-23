@@ -29,30 +29,134 @@
         <!-- Courses Control -->
         <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="profile-tab">
             <div class="container" id="control_container">
-                <p> Courses Control </p>
 
-                <form method="POST" action="createCourse">
+                <!-- Add Course Category-->
+                <div class="container" id="control_container">
+                    <button class="btn btn-default" onclick="addCategory()" >Add Category</button>
+                    <form method="POST" action="createCategory" id="add_category" style="display:none">
+                        @csrf
+                        @foreach ($category_feild as $ca => $va)
+                            @if($va == 'id' || $va == 'created_at' || $va == 'updated_at')
 
-                    @foreach ($column as $c => $v) {{$v}}
-                    <div class="form-group row">
-                        <div class="col-sm-10">
-                            <input name="c" type="text" class="form-control">
+                            @else
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        {{$va}}
+                                        <input name="name" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                        <div class="form-group row">
+                            <div class="btn-group">
+                                <input type="submit" class="btn btn-danger">
+                            </div>
                         </div>
+                    </form>
+                </div>
+
+                <!-- Show courses Category -->
+                <div class="container" id="control_container">
+                    <button class="btn btn-default" onclick="showCategory()" >Show course Category</button>
+                    <div class="" id="show_category" style="display: none">
+                        @foreach($category as $val)
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="container" id="control_container">
+                                        <button class="btn btn-default" onclick="editCategory()" >Edit</button>
+                                        <button class="btn btn-default" href="{{redirect("control")}}" >cancel</button>
+                                        <form method="POST" action="editCategory">
+                                            @csrf
+                                        <div class="form-group row">
+                                            <div class="col-sm-5">
+                                                <input type="text" readonly class="form-control" id="staticName" value="{{$val->name}}" name="name">
+
+                                                <input type="submit" class="btn btn-danger" id="edit_cat" style="display: none">
+                                            </div>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+
+                                </div>
+                            </div>
+                        @endforeach
+
                     </div>
 
-                    @endforeach
+                </div>
 
+                <!-- Add Course -->
+                <div class="container" id="control_container">
+                <button class="btn btn-default" onclick="addCourse()" >Add course</button>
+                <form method="POST" action="createCourse" id="add_course" style="display:none">
+                    @csrf
+                    @foreach ($cousre_feild as $c => $v)
+                        @if($v == 'id' || $v == 'created_at' || $v == 'updated_at')
+
+
+                        @elseif($v == 'category_id')
+                            <select name="category_id" required>
+
+                                @foreach($category as $cat)
+                                    <option value="{{$cat->id}}" >{{$cat->name}}</option>
+                                @endforeach
+                            </select>
+
+                            @elseif($v == 'start_date' || $v == 'end_date')
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    {{$v}}
+                                    <input name="{{$v}}" type="date" class="form-control">
+                                </div>
+                            </div>
+
+                            @else
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    {{$v}}
+                                    <input name="{{$v}}" type="text" class="form-control">
+                                </div>
+                            </div>
+                         @endif
+
+
+                    @endforeach
                     <div class="form-group row">
                         <div class="btn-group">
                             <input type="submit" class="btn btn-danger">
-                            {{-- <button href="control" class="btn btn-default">Cancel</button> --}}
+                             {{--<button href="control" class="btn btn-default">Cancel</button>--}}
                         </div>
                     </div>
-
                 </form>
+                </div>
+
+
+                <!-- Show courses -->
+                <div class="container" id="control_container">
+                    <button class="btn btn-default" onclick="showCourse()" >Show course</button>
+                    <div class="" id="show_course" style="display: none">
+                        @foreach($courses as $value)
+                            <div class="panel panel-default">
+                                <div class="panel-heading">{{$value->name}}</div>
+                                <div class="panel-body">
+                                   <p>{{$value->time}}</p>
+                                   <p>{{$value->period}}</p>
+                                   <p>{{$value->lessons_number}}</p>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+
+                </div>
+
 
             </div>
         </div>
+
+
 
         <!-- Student Account Control -->
         <div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="contact-tab">
@@ -73,6 +177,36 @@
 }
 
 window.onload=managerFunction();
+
+</script>
+
+<script>
+    function addCourse() {
+        div = document.getElementById('add_course');
+        div.style.display = "block";
+    }
+
+    function showCourse(){
+        show = document.getElementById('show_course');
+        show.style.display = "block";
+    }
+
+    function addCategory(){
+        category = document.getElementById('add_category');
+        category.style.display = "block";
+    }
+
+    function showCategory(){
+            categoryShow = document.getElementById('show_category');
+        categoryShow.style.display = "block";
+    }
+    function editCategory(){
+        categoryedit = document.getElementById('edit_cat');
+        categoryedit.style.display = "block";
+        $("#staticName").prop("readonly", false);
+        }
+
+
 
 </script>
 

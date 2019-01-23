@@ -41,7 +41,7 @@
                             <a class="nav-link" href="{{ route('profile') }}">{{ __('profile') }}</a>
                         </li>
 
-                        @if (Auth::user()->role == 1)
+                        @if (Auth::user()->hasRole('admin'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('control') }}">{{ __('control') }}</a>
                         </li>
