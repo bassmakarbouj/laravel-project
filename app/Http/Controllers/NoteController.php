@@ -20,9 +20,7 @@ class NoteController extends Controller
 
         var_dump("hii");
         $all_notes = new Note;
-        // $all_notes->page_id = $p_id;
         $all_notes->text = $request->text;
-        // $all_notes->save();
         $mypage->notes()->save($all_notes);
         return back();
     }

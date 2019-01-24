@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 23, 2019 at 04:00 PM
+-- Generation Time: Jan 24, 2019 at 04:15 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 5.6.39
 
@@ -40,11 +40,11 @@ CREATE TABLE `category_course` (
 --
 
 INSERT INTO `category_course` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(22, 'web', '2019-01-22 22:00:00', NULL),
-(27, 'and', '2019-01-23 10:51:11', '2019-01-23 10:51:11'),
-(41, 'vvvvv', '2019-01-23 11:03:10', '2019-01-23 11:03:10'),
-(42, 'vvvvv', '2019-01-23 11:04:06', '2019-01-23 11:04:06'),
-(43, 'weeee', '2019-01-23 11:04:15', '2019-01-23 11:04:15');
+(44, 'Android', '2019-01-24 07:56:51', '2019-01-24 07:56:51'),
+(45, 'Network', '2019-01-24 11:37:07', '2019-01-24 11:37:07'),
+(46, 'java', '2019-01-24 11:37:30', '2019-01-24 11:37:30'),
+(47, 'Python', '2019-01-24 11:46:43', '2019-01-24 11:58:21'),
+(48, 'web', '2019-01-24 11:58:08', '2019-01-24 11:58:08');
 
 -- --------------------------------------------------------
 
@@ -73,7 +73,7 @@ CREATE TABLE `course` (
 --
 
 INSERT INTO `course` (`id`, `category_id`, `name`, `time`, `period`, `target_age`, `student_number`, `lessons_number`, `trainer_name`, `start_date`, `end_date`, `created_at`, `updated_at`) VALUES
-(6, 22, 'laravel', '2:00 pm', '15 days', '20', '25', '15', 'Mhd', '2019-01-23', '2019-01-31', '2019-01-23 12:16:29', '2019-01-23 12:16:29');
+(20, 48, 'Laravel', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-01-24 12:09:57', '2019-01-24 12:09:57');
 
 -- --------------------------------------------------------
 
@@ -288,9 +288,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `role`) VALUES
-(1, 'Bassma Admin', 'bassma222k@gmail.com', '$2y$10$SYQqvDACO1.FZcgbMzi2yuZIGh/P4yc/.F36RXa2gh/aLqEHcslbW', 'rNksGPSpupDDQ1FicyDRbs5mLdQg2J0y1Z8gO0E8kXbdK16xk7kkw8FWoyOs', NULL, NULL, NULL),
-(2, 'Bassma Trainer', 'bassma222@gmail.com', '$2y$10$po/oUYmz8xxS.DCAElYbu.v.00hKLkxcnsagzdNpu9IZwNcu9tVrm', 'h7Fa2EwVp6FYTyWtqZe8Q1exVAQ1IpDiqnUsHEwFv7eMdkz6gMQ0vsI4zvZC', NULL, NULL, NULL),
-(3, 'Bassma Student', 'bassma@gmail.com', '$2y$10$zF16LqWOKxfh9DDrVlbTTetcc0O1ByPSZfYQCjwItvz.ybeD4.QrO', 'Hslyu9N2TM2s5LKMSkMLReLmhWsNZCd4H0Eg7qjYa6l9CEI0G7MT0hlO88TP', NULL, NULL, NULL);
+(1, 'Bassma Admin', 'bassma222k@gmail.com', '$2y$10$SYQqvDACO1.FZcgbMzi2yuZIGh/P4yc/.F36RXa2gh/aLqEHcslbW', 'AYyP9iFofP9UN9cFg4LvlQYaJp18lIMAb8BCxDad0gq4m9cY7pUBhB3V85zs', NULL, NULL, NULL),
+(2, 'Bassma Trainer', 'bassma222@gmail.com', '$2y$10$po/oUYmz8xxS.DCAElYbu.v.00hKLkxcnsagzdNpu9IZwNcu9tVrm', 'dAgTmZEg5AMmkdSxSluJjUnroqGTUUT7XX0Epiwi6nzIcG2XC7s82gT5IwF3', NULL, NULL, NULL),
+(3, 'Bassma Student', 'bassma@gmail.com', '$2y$10$zF16LqWOKxfh9DDrVlbTTetcc0O1ByPSZfYQCjwItvz.ybeD4.QrO', 'wydmnfKhJdOHF0bVeDpnR9h4BidYycLWwVLtoUDGED2wdKWaDr3L5OqsBDtg', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -376,13 +376,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category_course`
 --
 ALTER TABLE `category_course`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `migrations`

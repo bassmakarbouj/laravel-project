@@ -39,9 +39,23 @@ Route::get('/home', 'HomeController@index')->middleware('auth')->name('home');
 Route::get('/profile', 'ProfileController@profile')->name('profile');
 Route::post('update-my-profile/{user_id}','ProfileController@updateProfile');
 
-//Control page
+//Control
 Route::get('/control', 'ControlController@control')->name('control');
+Route::get('/add_manager', 'ControlController@control')->name('add_manager');
+Route::get('/student_account', 'ControlController@control')->name('student_account');
 /*Course*/
 Route::post('createCourse','ControlController@createCourse');
 /*Category*/
 Route::post('createCategory','ControlController@createCategory');
+Route::post('editCategory/{cat_id}','ControlController@editCategory');
+Route::get('deleteCategory/{cat_id}','ControlController@deleteCategory');
+Route::get('deleteCourse/{course_id}','ControlController@deleteCourse');
+Route::post('editCourse/{course_id}','ControlController@editCourse');
+
+
+
+Route::get('/course','CourseController@course')->name('course');
+Route::get('/new_course','NewCourseController@newCourse')->name('new_course');
+Route::get('/course_category','CourseCategoryController@courseCategory')->name('course_category');
+Route::get('/form_register','FormregisterController@formRegister')->name('form_register');
+

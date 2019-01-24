@@ -40,12 +40,38 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('profile') }}">{{ __('profile') }}</a>
                         </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('form_register') }}">{{ __('form register') }}</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('new_course') }}">{{ __('new course') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('course_category') }}">{{ __('course category') }}</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('course') }}">{{ __('course') }}</a>
+                            </li>
+
+
 
                         @if (Auth::user()->hasRole('admin'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('control') }}">{{ __('control') }}</a>
                         </li>
-                        @endif @endif
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('add_manager') }}">{{ __('Add Manager') }}</a>
+                        </li>
+
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('student_account') }}">{{ __('Student Account') }}</a>
+                        </li>
+
+                        @endif
+                        @endif
 
                     </ul>
 

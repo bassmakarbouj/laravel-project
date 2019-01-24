@@ -17,7 +17,8 @@ class ControlController extends Controller
 {
     public function control(ShowControlWindowRequest $request){
        
-         $courses = DB::table('course')->get();
+         $courses = DB::table('course')->get()->all();
+//         dd($courses[0]);
         $cousre_feild = Schema::getColumnListing('course');
         $category = DB::table('category_course')->get()->all();
         $category_feild = Schema::getColumnListing('category_course');
@@ -26,16 +27,9 @@ class ControlController extends Controller
     }
 
     public function createCourse(CreateCourseRequest $request){
-        $course = new Course;
-//        $course->name = $request->name;
-//        $course->category_id = $request->category;
-        $course->fill($request->validated());
+        $course = new Course($request->validated());
         $course->save();
-        $courses = DB::table('course')->get();
-        $cousre_feild = Schema::getColumnListing('course');
-        $category = DB::table('category_course')->get()->all();
-        $category_feild = Schema::getColumnListing('category_course');
-        return view('control', compact('category_feild','cousre_feild' ,'category' , 'courses'));
+        return redirect("control");
 
 
     }
@@ -48,5 +42,27 @@ class ControlController extends Controller
         $category->save();
 
        return redirect("control");
+    }
+
+    public function editCategory(Request $request ,CategoryCourse $cat_id){
+        $cat_id->update($request->all());
+        return back();
+    }
+
+    public function editCourse(Request $request ,Course $course_id){
+        dd($request->all());
+        $course_id->update($request->all());
+        return back();
+    }
+
+    public function deleteCategory(CategoryCourse $cat_id){
+        $cat_id->delete();
+        return back();
+
+    }
+    public function deleteCourse(Course $course_id){
+        $course_id->delete();
+        return back();
+
     }
 }
