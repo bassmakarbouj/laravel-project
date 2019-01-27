@@ -101,6 +101,11 @@
                             @foreach ($cousre_feild as $c => $v)
                                 @if($v == 'id' || $v == 'created_at' || $v == 'updated_at')
                                     {{----}}
+                                @elseif($v == 'new')
+                                    {{$v}}
+                                    <input name="new" type="checkbox" class="form-control">
+
+
                                 @elseif($v == 'category_id')
                                     <p>Course Category</p>
                                     <select name="category_id" required class="form-control">

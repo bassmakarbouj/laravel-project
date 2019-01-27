@@ -16,18 +16,20 @@ use App\Http\Requests\ShowControlWindowRequest;
 class ControlController extends Controller
 {
     public function control(ShowControlWindowRequest $request){
-       
-         $courses = DB::table('course')->get()->all();
-//         dd($courses[0]);
+        $courses = DB::table('course')->get()->all();
+//        $filtered_courses = $courses->map(function ($item) {
+//            return collect($item)->except(['id', 'created_at', 'updated_at'])->all();
+//        });
         $cousre_feild = Schema::getColumnListing('course');
         $category = DB::table('category_course')->get()->all();
         $category_feild = Schema::getColumnListing('category_course');
-//        dd($courses);
-        return view('control', compact('category_feild','cousre_feild' ,'category' ,'courses'));
+        return view('control', compact('category_feild','cousre_feild' ,'category' ,'courses','filtered_courses'));
     }
 
     public function createCourse(CreateCourseRequest $request){
+//        dd("ggg");
         $course = new Course($request->validated());
+//        dd($course);
         $course->save();
         return redirect("control");
 
@@ -36,21 +38,19 @@ class ControlController extends Controller
 
     public function createCategory(CreateCategoryCourseRequest $request){
         $category = new CategoryCourse;
-
         $category->name = $request->name;
-
         $category->save();
-
        return redirect("control");
     }
 
     public function editCategory(Request $request ,CategoryCourse $cat_id){
+//        dd($cat_id);
         $cat_id->update($request->all());
         return back();
     }
 
     public function editCourse(Request $request ,Course $course_id){
-        dd($request->all());
+//        dd($course_id);
         $course_id->update($request->all());
         return back();
     }

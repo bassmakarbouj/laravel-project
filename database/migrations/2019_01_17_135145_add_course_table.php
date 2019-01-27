@@ -17,14 +17,14 @@ class AddCourseTable extends Migration
             $table->increments('id');
             $table->integer('category_id')->unsigned();
             $table->string('name');
-            $table->string('time');
-            $table->string('period');
-            $table->string('target_age');
-            $table->string('student_number');
-            $table->string('lessons_number');
-            $table->string('trainer_name');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->string('time')->nullable();
+            $table->string('period')->nullable();
+            $table->string('target_age')->nullable();
+            $table->string('student_number')->nullable();
+            $table->string('lessons_number')->nullable();
+            $table->string('trainer_name')->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
             // $table->file('course_files');
             $table->timestamps();
 

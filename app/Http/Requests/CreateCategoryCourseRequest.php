@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Auth;
 
-class UpdateProfileRequest extends FormRequest
+class CreateCategoryCourseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class UpdateProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->hasRole('admin','trainer','user');
+        return $this->user()->hasRole('admin') && $this->user()->can('create_course_category');
     }
 
     /**
@@ -25,9 +24,7 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  =>  'string',
-            'email' =>  'string',
-            'password'  =>  'string'
+            'name' => 'string',
         ];
     }
 }

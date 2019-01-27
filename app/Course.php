@@ -16,7 +16,8 @@ class Course extends Model
 
     ];
 
-    protected $fillable =['name',
+    protected $fillable =[
+        'name',
         'category_id',
         'time' ,
         'period',
@@ -26,13 +27,23 @@ class Course extends Model
         'trainer_name',
         'start_date',
         'end_date' ,
+        'new' ,
         ];
 
+    protected $private = [
+        'id',
+        'created_at',
+        'updated_at'
+    ];
 
 
     public function myCategory(){
         return $this->belongTo(CategoryCourse::class);
     }
+
+//    public function setNewAttribute(){
+//        $this->attributes['new'] ?? 0;
+//    }
 
     // public function getTableColumns() {
     //     return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
