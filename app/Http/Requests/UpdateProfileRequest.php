@@ -14,8 +14,10 @@ class UpdateProfileRequest extends FormRequest
      */
     public function authorize()
     {
+//        return true;
         return $this->user()->hasRole('admin','trainer','user');
     }
+
 
     /**
      * Get the validation rules that apply to the request.

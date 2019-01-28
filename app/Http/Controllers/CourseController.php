@@ -16,6 +16,6 @@ class CourseController extends Controller
         });
         $cousre_feild = Schema::getColumnListing('course');
         $category = DB::table('category_course')->get()->toArray();
-        return view('course',compact('courses','cousre_feild','category','filtered_courses'));
+        return [$courses];
     }
 }

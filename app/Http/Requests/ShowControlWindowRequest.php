@@ -14,6 +14,7 @@ class ShowControlWindowRequest extends FormRequest
      */
     public function authorize()
     {
+//        dd(auth()->user());
         return $this->user()->hasRole('admin');
     }
 

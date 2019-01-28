@@ -9,8 +9,7 @@ use Schema;
 class NewCourseController extends Controller
 {
     public function newCourse(){
-        $courses = DB::table('course')->get()->all();
-        $cousre_feild = Schema::getColumnListing('course');
-        return view('new_course',compact('courses','cousre_feild'));
+        $courses = DB::table('course')->where('new',1)->get();
+        return $courses;
     }
 }

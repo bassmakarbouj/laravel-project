@@ -16,22 +16,20 @@ class ProfileController extends Controller
     // }
 
 
-    public function profile(){
-        // $id = DB::table('users')->get();
+    public function profile()
+    {
         $id = Auth::user();
-
         $i = $id;
-        // dd($i);
-
-        return view('profile',compact('i'));
+        return $i;
     }
 
 
-    public function updateProfile(UpdateProfileRequest $request , User $user_id){
-        // dd($request);
+    public function updateProfile(UpdateProfileRequest $request, User $user_id)
+    {
+//        dd($request);
         $user_id->update($request->all());
         $user_id->save();
         // Post::where('id', $user_id)->update(Input::all());
-        return  redirect('profile');
+        return $user_id;
     }
 }
