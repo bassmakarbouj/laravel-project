@@ -29,7 +29,9 @@ class UpdateProfileRequest extends FormRequest
         return [
             'name'  =>  'string',
             'email' =>  'string',
-            'password'  =>  'string'
+            'password'  =>  'string',
+            'photo'  =>  'file',
+            'statue'  =>  'boolean',
         ];
     }
 }

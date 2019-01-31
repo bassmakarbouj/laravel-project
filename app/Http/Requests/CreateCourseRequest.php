@@ -32,6 +32,8 @@ class CreateCourseRequest extends FormRequest
             'student_number' => 'nullable|string',
             'lessons_number' => 'nullable|string',
             'trainer_name' => 'nullable|string',
+            'course_files' => 'nullable',
+            'course_image' => 'nullable',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
             'new' => 'boolean',

@@ -20,7 +20,10 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * @api {get} /home index
+     * @apiGroup Home
+     *
+     * @apiSuccess (Success 200) return home view
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -29,15 +32,6 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function profile(){
-        // $id = DB::table('users')->get();
-        $id = Auth::user();
-        
-        $i = $id;
-        // dd($i);
-        
-        return view('profile',compact('i'));
-    }
 
     
 }

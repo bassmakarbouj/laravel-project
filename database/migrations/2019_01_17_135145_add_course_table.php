@@ -25,7 +25,8 @@ class AddCourseTable extends Migration
             $table->string('trainer_name')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
-            // $table->file('course_files');
+            $table->string('course_files')->nullable();
+            $table->string('course_image')->nullable();
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('category_course')->onDelete('cascade');

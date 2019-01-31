@@ -15,13 +15,11 @@ class CreateFormTable extends Migration
     {
         Schema::create('forms', function (Blueprint $table) {
             $table->increments('id');
-            $table->ineger('form_template_id');
-            $table->ineger('student_id');
-            $table->boolean('accepted');
+            $table->integer('course_id')->unsigned();
+            $table->string('name');
             $table->timestamps();
 
-            $table->foreign('form_template_id')->references('id')->on('form_template')->onDelete('cascade');
-            $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('course_id')->references('id')->on('course')->onDelete('cascade');
 
         });
     }
