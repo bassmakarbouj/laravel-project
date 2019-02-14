@@ -34,7 +34,7 @@ class FormregisterController extends Controller
     }
 
     /**
-     * @api {post} /register_form/{form_id} registerForm
+     * @api {post} /add_form_template/{form_id} addFormTemplate
      * @apiGroup Formregister
      * @apiParam {object} request object array of registerform info
      * @apiParam {integer} form_id form id
@@ -42,7 +42,7 @@ class FormregisterController extends Controller
      * @apiSuccess (Success 200)  form_template register form template for student of specific course
      * @return Form
      */
-    public function registerForm(Request $request, $form_id){
+    public function addFormTemplate(Request $request, $form_id){
         $form = DB::table('forms')->where('id',$form_id)->pluck('form_statue');
         if($form[0] == 1){
             $form_template = new FormTemplate($request->toArray());
@@ -57,7 +57,7 @@ class FormregisterController extends Controller
     }
 
     /**
-     * @api {post} /edit_register_form/{form_template_id} editForm
+     * @api {post} /edit_form_template/{form_template_id} editFormTemplate
      * @apiGroup Formregister
      * @apiParam {object} request object array of form template updating info
      * @apiParam {object} form_template_id  array contain form template id & field to update
@@ -65,20 +65,46 @@ class FormregisterController extends Controller
      * @apiSuccess (Success 200) form_template_id  updating form template info
      *
      */
-    public function editForm(EditFormRequest $request, FormTemplate $form_template_id ){
+    public function editFormTemplate(EditFormRequest $request, FormTemplate $form_template_id ){
         $form_template_id->update($request->all());
         $form_template_id->save();
         return $form_template_id;
     }
 
+ /**
+     * @api {post} /edit_form/{form_id} editForm
+     * @apiGroup Formregister
+     * @apiParam {object} request object array of form updating info
+     * @apiParam {object} form_id  array contain form id & field to update
+     *
+     * @apiSuccess (Success 200) form_id  updating form info
+     *
+     */
+    public function editForm(Request $request, Form $form_id ){
+        $form_id->update($request->all());
+        $form_id->save();
+        return $form_id;
+    }
+
     /**
-     * @api {get} /show_form showForm
+     * @api {get} /form_template formTemplate
      * @apiGroup Formregister
      *
      * @apiSuccess (Success 200) all_form show all form template info
      */
-    public function showForm(){
+    public function formTemplate(){
         $all_form = DB::table('form_templates')->get()->all();
+        return $all_form;
+    }
+
+/**
+     * @api {get} /form form
+     * @apiGroup Formregister
+     *
+     * @apiSuccess (Success 200) all_form show all form info
+     */
+    public function form(){
+        $all_form = DB::table('forms')->get()->all();
         return $all_form;
     }
 
@@ -96,7 +122,7 @@ class FormregisterController extends Controller
     }
 
     /**
-     * @api {get} /delete_Form_template/{form_template_id} deleteCourse
+     * @api {get} /delete_Form_template/{form_template_id} deleteFormTemplate
      * @apiGroup Formregister
      * @apiParam {object} form_template_id object array contain form template id to delete
      *

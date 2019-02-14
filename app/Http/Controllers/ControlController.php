@@ -18,136 +18,28 @@ use App\Http\Requests\ShowControlWindowRequest;
 class ControlController extends Controller
 {
     /**
-     * @api {get}  /control showControl
+     * @api {get}  /show_all showAll
      * @apiGroup Control
      *
      * @apiSuccess (Success 200) courses Get all courses info
-     * @apiSuccess (Success 200) cousre_feild Get courses table feild name
+     * @apiSuccess (Success 200) course_field Get courses table field name
      * @apiSuccess (Success 200) category Get all category info
-     * @apiSuccess (Success 200) category_feild Get category table feild name
+     * @apiSuccess (Success 200) category_field Get category table field name
      */
-    public function showControl(){
+    public function showAll(){
         $courses = DB::table('course')->get()->all();
-        $cousre_feild = Schema::getColumnListing('course');
+        $course_field = Schema::getColumnListing('course');
         $category = DB::table('category_course')->get()->all();
         $category_feild = Schema::getColumnListing('category_course');
-        return [$courses , $cousre_feild , $category , $category_feild];
+        return [$courses , $course_field , $category , $category_feild];
     }
 
-    /**
-     * @api {post} /createCourse  createCourse
-     * @apigroup Control
-     * @apiParam {object} request object array of course info
-     *
-     * @apiSuccess (success 200) course Add course  with image & files
-     *
-     */
-    public function createCourse(CreateCourseRequest $request){
-        $course = new Course($request->validated());
-        if(($request->hasFile('course_files')) || ($request->hasFile('course_image'))) {
-            $allowedfileExtension = ['pdf', 'jpg', 'png', 'docx'];
-            $files = $request->file('course_files');
-            $image =$request->file('course_image');
-            if ($files) {
-                foreach ($files as $file) {
-                    $filename = $file->getClientOriginalName();
-                    $extension = $file->getClientOriginalExtension();
-                    $check = in_array($extension, $allowedfileExtension);
-                    if ($check) {
-                        foreach ($request->course_files as $file) {
-                            $filename= $file->store('course_files');
-                            $course->course_files = $filename;
-                        }
-                    }
-                }
-            }
-            if ($image) {
-                $photo = $request->file('course_image');
-                $imagename = $photo->getClientOriginalName();
-                $extension = $photo->getClientOriginalExtension();
-                $checkimage = in_array($extension, $allowedfileExtension);
-                if ($checkimage) {
-                    $i = $request->course_image;
-                    $imagename = $i->store('course_image');
-                }
-                $course->course_image = $imagename;
-            }
-        }
-        $course->save();
-        return $course;
-    }
+
+
+
 
     /**
-     * @api {post} /createCategory  createCategory
-     * @apigroup Control
-     * @apiParam {object} request object array of  category info
-     *
-     * @apiSuccess (success 200) category Add category
-     */
-    public function createCategory(CreateCategoryCourseRequest $request){
-        $category = new CategoryCourse;
-        $category->name = $request->name;
-        $category->save();
-       return $category;
-    }
-
-    /**
-     * @api {post} /editCategory editCategory
-     * @apiGroup Control
-     * @apiParam {object} request object array of category updating info
-     * @apiParam {object} cat_id  array of category id & feild to update
-     *
-     * @apiSuccess (Success 200) cat_id updating category info
-     * @apiReturn CategoryCourse
-     */
-    public function editCategory(Request $request ,CategoryCourse $cat_id){
-        $cat_id->update($request->all());
-        $cat_id->save();
-        return $cat_id;
-    }
-
-    /**
-     * @api {post} /editCourse editCourse
-     * @apiGroup Control
-     * @apiParam {object} request object array of course updating info
-     * @apiParam {object} course_id  array contain course id & feild to update
-     *
-     * @apiSuccess (Success 200) course_id updating course info
-     * @apiReturn Course
-     */
-    public function editCourse(Request $request ,Course $course_id){
-        $course_id->update($request->all());
-        return $course_id;
-    }
-
-    /**
-     * @api {get} /deleteCategory/{cat_id} deleteCategory
-     * @apiGroup Control
-     * @apiParam {object} cat_id object array contain category id to delete
-     *
-     * @apiSuccess (Success 200)  cat_id delete category
-     */
-    public function deleteCategory(CategoryCourse $cat_id){
-        $cat_id->delete();
-        return $cat_id;
-
-    }
-
-    /**
-     * @api {get} /deleteCourse/{course_id} deleteCourse
-     * @apiGroup Control
-     * @apiParam {object} course_id object array contain course id to delete
-     *
-     * @apiSuccess (Success 200)  course_id delete course
-     */
-    public function deleteCourse(Course $course_id){
-        $course_id->delete();
-        return $course_id;
-
-    }
-
-    /**
-     * @api {post} /add_manager/{role}/{user} addManager
+     * @api {get} /add_manager/{role}/{user} addManager
      * @apiGroup Control
      * @apiParam {object} role object array contain role id
      * @apiParam {object} user object array contain user id
@@ -161,12 +53,12 @@ class ControlController extends Controller
 
 
     /**
-     * @api {get} /show_student showStudent
+     * @api {get} /student student
      * @apiGroup Control
      *
      * @apiSuccess (Success 200) all_student show all student info
      */
-    public function showStudent(){
+    public function student(){
         $student_role = DB::table('role_user')->where('role_id',3)->pluck('user_id')->toArray();
         $student = array_values($student_role);
         $all_student=DB::table('users')->whereIn('id',$student)->get();
@@ -176,18 +68,18 @@ class ControlController extends Controller
 
 
     /**
-     * @api {post} /edit_profile/{id} editProfile
+     * @api {post} /edit_user_profile/{user_id} editUserProfile
      * @apiGroup Control
      * @apiParam {object} request object array of user profile updating info
-     * @apiParam {object} id  array contain user id & field to update
+     * @apiParam {object} user_id  array contain user id & field to update
      *
-     * @apiSuccess (Success 200) id  updating user info
+     * @apiSuccess (Success 200) user_id  updating user info
      * @apiReturn User|string
      */
-    public function editProfile(UpdateProfileRequest $request,User $id){
-        $user = DB::table('users')->where('id',$id->id)->pluck('statue')->toArray();
-        if($user[0] == 1){
-            $id->update($request->all());
+    public function editUserProfile(UpdateProfileRequest $request,User $user_id){
+        $user_statue = DB::table('users')->where('id',$user_id->id)->pluck('statue')->toArray();
+        if($user_statue[0] == 1){
+            $user_id->update($request->all());
             if($request->hasFile('photo')){
                 $allowedfileExtension = ['jpg', 'png'];
                 $photo = $request->file('photo');
@@ -198,10 +90,10 @@ class ControlController extends Controller
                     $i =$request->photo;
                     $imagename = $i->store('photo');
                 }
-                $id->photo = $imagename;
+                $user_id->photo = $imagename;
             }
-            $id->save();
-            return $id;
+            $user_id->save();
+            return $user_id;
 
         }
        else{
@@ -210,49 +102,34 @@ class ControlController extends Controller
     }
 
     /**
-     * @api {get} /delete_student_account/{student} deleteStudent
+     * @api {get} /delete_student_account/{student_id} deleteStudentAccount
      * @apiGroup Control
-     * @apiParam {object} student object array contain student id to delete
+     * @apiParam {object} student_id object array contain student id to delete
      *
-     * @apiSuccess (Success 200)  student delete student
+     * @apiSuccess (Success 200)  student_id delete student
      */
-    public function deleteStudent(User $student){
-        $student->delete();
-        return $student;
+    public function deleteStudentAccount(User $student_id){
+        $role = DB::table('role_user')->where('user_id',$student_id->id)->pluck('role_id')->toArray();
+        if($role[0] == 3) {
+            $student_id->delete();
+            return $student_id;
+        }
     }
 
     /**
-     * @api {get} /delete_manager_account/{manager} deleteManager
+     * @api {get} /delete_manager_account/{manager_id} deleteManagerAccount
      * @apiGroup Control
-     * @apiParam {object} manager object array contain manager id to delete
+     * @apiParam {object} manager_id object array contain manager id to delete
      *
-     * @apiSuccess (Success 200)  manager delete manager
+     * @apiSuccess (Success 200)  manager_id delete manager
      */
-    public function deleteManager(User $manager){
-        $manager->delete();
-        return $manager;
+    public function deleteManagerAccount(User $manager_id){
+        $role = DB::table('role_user')->where('user_id',$manager_id->id)->pluck('role_id')->toArray();
+        if($role[0] == 2){
+            $manager_id->delete();
+            return $manager_id;
+        }
+
     }
-
-
-//    public function editManager(UpdateProfileRequest $request,User $manager){
-//        $manager->update($request->all());
-//        if($request->hasFile('photo')){
-//            $allowedfileExtension = ['jpg', 'png'];
-//            $photo = $request->file('photo');
-//            $imagename = $photo->getClientOriginalName();
-//            $extension = $photo->getClientOriginalExtension();
-//            $checkimage = in_array($extension, $allowedfileExtension);
-//            if($checkimage){
-//                $i =$request->photo;
-//                $imagename = $i->store('photo');
-//            }
-//            $manager->photo = $imagename;
-//        }
-//        $manager->save();
-//        return $manager;
-//
-//    }
-
-
 
 }

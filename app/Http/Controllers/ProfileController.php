@@ -23,7 +23,7 @@ class ProfileController extends Controller
 
 
     /**
-     * @api {post} update-my-profile/{user_id} updateProfile
+     * @api {post} update_my_profile/{user_id} updateMyProfile
      * @apiGroup Profile
      * @apiParam {object} request object array of logged in user profile updating info
      * @apiParam {object} user_id array contain user id & field to update
@@ -31,7 +31,7 @@ class ProfileController extends Controller
      * @apiSuccess (Success 200) user_id updating profile info
      * @return User
      */
-    public function updateProfile(UpdateProfileRequest $request, User $user_id){
+    public function updateMyProfile(UpdateProfileRequest $request, User $user_id){
         $user_id->update($request->all());
         if($request->hasFile('photo')){
             $allowedfileExtension = ['jpg', 'png'];

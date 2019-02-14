@@ -22,6 +22,7 @@ class APIRegisterController extends Controller
      */
     public function register(Request $request)
     {
+        global $imagename;
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255|unique:users',
             'name' => 'required',
@@ -43,11 +44,12 @@ class APIRegisterController extends Controller
             }
         }
 
+
         $user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => bcrypt($request->get('password')),
-            'photo' =>$imagename,
+            'photo' => $imagename,
         ]);
         $role = DB::table('roles')->where('name',"user")->get()->toArray();
         $user_id=$role[0]->id;

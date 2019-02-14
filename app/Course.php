@@ -41,11 +41,4 @@ class Course extends Model
         return $this->belongTo(CategoryCourse::class);
     }
 
-//    public function setNewAttribute(){
-//        $this->attributes['new'] ?? 0;
-//    }
-
-    // public function getTableColumns() {
-    //     return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
-    // }
 }
